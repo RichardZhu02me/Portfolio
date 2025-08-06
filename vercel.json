@@ -1,0 +1,10 @@
+{
+  "rootDirectory": "frontend",
+  "build": {
+    "env": {},
+    "commands": {
+      "build": "npm run build"
+    }
+  },
+  "outputDirectory": "frontend/dist"
+}
