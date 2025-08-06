@@ -1,10 +1,12 @@
-from langchain_community.document_loaders import PyPDFDirectoryLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import PyPDFDirectoryLoader, PyPDFLoader
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from uuid import uuid4
 from pathlib import Path
 from dotenv import load_dotenv
+from chunking import chunkTranscript, chunkDocuments, chunkResume
+
+
 load_dotenv()
 
 DATA_PATH = Path(__file__).resolve().parent / "data"
@@ -17,22 +19,21 @@ print("Initializing Chroma (in-memory)")
 vector_store = Chroma(
     embedding_function=embeddings_model,
     persist_directory=CHROMA_PATH
-    # Removed persist_directory for in-memory test
 )
 
-loader = PyPDFDirectoryLoader(DATA_PATH)
+# loader = PyPDFDirectoryLoader(DATA_PATH)
+# raw_documents = loader.load()
 
-raw_documents = loader.load()
+transcript_path = Path(DATA_PATH) / "important/transcript.pdf"
+transcript_documents = PyPDFLoader(str(transcript_path)).load()
 
-text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=300,
-    chunk_overlap=100,
-    length_function=len,
-    is_separator_regex=False,
-)
+resume_path = Path(DATA_PATH) / "important/resume.pdf"
+resume_documents = PyPDFLoader(str(resume_path)).load()
 
-chunks = text_splitter.split_documents(raw_documents)
 
+# chunks = chunkDocuments(raw_documents) + chunkTranscript(transcript_documents) #+ chunkResume(resume_documents)
+
+chunks = chunkTranscript(transcript_documents) + chunkResume(resume_documents)
 # Add print statements to check chunks
 print(f"Number of chunks: {len(chunks)}")
 if chunks:

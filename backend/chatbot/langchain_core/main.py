@@ -21,7 +21,7 @@ vector_store = Chroma(
     persist_directory=CHROMA_PATH
 )
 
-num_results = 100
+num_results = 3
 retriever = vector_store.as_retriever(search_kwargs={"k": num_results})
 
 def checkKnowledge(): 

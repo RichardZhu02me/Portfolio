@@ -26,3 +26,4 @@ dist-ssr
 # backend/.gitignore
 .env
 backend/myenv/
+backend/chatbot/langchain_core/data/
