@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-4-ux2m0+zz_j^)s0a-2crzaxi2j2r-m2=)s^0h9%%w6lflg!q9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["3013405dbd7c.ngrok-free.app"]
 
 
 # Application definition
@@ -128,6 +128,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",                 # local dev
+    "https://3013405dbd7c.ngrok-free.app",  # ngrok tunnel for local dev
+    "https://portfolio-git-dev-richards-projects-03891b26.vercel.app", # deployed frontend dev branch
     "https://portfolio-rl2k9objs-richards-projects-03891b26.vercel.app",   # deployed frontend
 ]
 
