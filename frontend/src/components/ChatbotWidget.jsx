@@ -13,7 +13,7 @@ export const ChatbotWidget = () => {
         setMessages((prev) => [...prev, userMessage]);
         setInput("");
         try {
-            const response = await fetch("http://localhost:8000/chatbot/api/chat/", {
+            const response = await fetch("https://3013405dbd7c.ngrok-free.app/chatbot/api/chat/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ question: input }),
@@ -32,7 +32,7 @@ export const ChatbotWidget = () => {
     return (
         <div className="fixed bottom-8 right-8 z-[9999]">
             {isOpen ? (
-                <div className="w-[350px] h-[480px] bg-card border border-border rounded-xl shadow-lg flex flex-col overflow-hidden">
+                <div className="w-[400px] h-[480px] bg-card border border-border rounded-xl shadow-lg flex flex-col overflow-hidden">
                     <div className="bg-primary/30 px-4 py-4 flex items-center justify-between rounded-t-xl">
                         <span className="text-lg font-semibold text-primary-foreground">Chatbot</span>
                         <button
