@@ -29,7 +29,7 @@ export const Home = () => {
                     <ProjectsSection/>
                     <ContactSection/>
                 </main>
-
+                
                 {/* Footer */}
                 <Footer/>
             </ThemeProvider>
