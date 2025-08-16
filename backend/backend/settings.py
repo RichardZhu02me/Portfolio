@@ -1,3 +1,4 @@
+import os
 """
 Django settings for backend project.
 
@@ -23,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-4-ux2m0+zz_j^)s0a-2crzaxi2j2r-m2=)s^0h9%%w6lflg!q9"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["3013405dbd7c.ngrok-free.app"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -119,8 +120,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
-
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

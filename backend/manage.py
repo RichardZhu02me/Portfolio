@@ -1,7 +1,12 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+import environ
 import os
 import sys
+
+env = environ.Env()
+env_file = ".env.dev" if env("DJANGO_ENV", default="dev") == "dev" else ".env.prod"
+environ.Env.read_env(env_file)
 
 
 def main():
