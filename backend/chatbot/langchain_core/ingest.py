@@ -1,5 +1,5 @@
 from langchain_community.document_loaders import PyPDFDirectoryLoader, PyPDFLoader
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from uuid import uuid4
 from pathlib import Path

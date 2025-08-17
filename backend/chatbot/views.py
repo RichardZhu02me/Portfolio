@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .langchain_core.main import stream_response
+from .langchain_core.main import get_answer
 
 # for now, no history
 class LangChainRAGView(APIView):
@@ -12,10 +12,7 @@ class LangChainRAGView(APIView):
 
         try:
             # consume the generator
-            answer = ""
-            for chunk in stream_response(question, None):
-                answer = chunk  # progressively grows
-
+            answer = get_answer(question)
             return Response({"answer": answer})
         except Exception as e:
             return Response({"error": str(e)}, status=500)

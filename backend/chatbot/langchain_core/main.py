@@ -1,17 +1,18 @@
 from langchain_groq import ChatGroq
-from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from pathlib import Path
-
-from dotenv import load_dotenv
-load_dotenv()
+from .chains import router_chain, get_filtered_retriever, combine_chain, answer_chain, summary_chain
+from langchain_huggingface import HuggingFaceEmbeddings
+from transformers import pipeline
 
 DATA_PATH = Path(__file__).resolve().parent / "data"
 CHROMA_PATH = Path(__file__).resolve().parent / "chroma"
 
 embeddings_model = HuggingFaceEmbeddings(model_name='jinaai/jina-embeddings-v2-base-en')
 
-llm = ChatGroq(
+flan = pipeline("text2text-generation", model="google/Flan-T5-base")
+
+groq = ChatGroq(
     model_name="llama-3.3-70b-versatile",
     temperature=0.8
 )
@@ -21,12 +22,31 @@ vector_store = Chroma(
     persist_directory=CHROMA_PATH
 )
 
-num_results = 3
-retriever = vector_store.as_retriever(search_kwargs={"k": num_results})
+num_results = 5
+vector_retriever = vector_store.as_retriever(search_kwargs={"k": num_results})
+
+def get_answer(question, history=""):
+  router_llm = flan
+  combine_llm = groq
+  answer_llm = groq
+  summary_llm = flan
+
+  classification = router_chain(router_llm).invoke({"question": question, "history": history})
+  # print("classification: ", classification)
+  retriever_chain = get_filtered_retriever(vector_retriever, num_results=num_results, classification=classification)
+  docs = retriever_chain.invoke(question)
+  # print("docs: ", docs)
+  compact_docs = combine_chain(combine_llm).invoke({"input": docs, "question": question})
+  # print("compact_docs: ", compact_docs)
+  answer = answer_chain(answer_llm).invoke({"question": question, "context": compact_docs, "history": history})
+  # print("answer: ", answer)
+  summary = summary_chain(summary_llm).invoke({"answer": answer, "question": question})
+  # print("summary: ", summary)
+  return summary
 
 def checkKnowledge(): 
 
-  docs = retriever.invoke("can you print out the data of everything I gave you")
+  docs = vector_retriever.invoke("can you print out the data of everything I gave you")
   
   print("chunks in docs: ", len(docs))
   i = 1
@@ -37,7 +57,7 @@ def checkKnowledge():
 
 def stream_response(message, history): 
 
-  docs = retriever.invoke(message)
+  docs = vector_retriever.invoke(message)
 
   knowledge = ""
 
@@ -62,7 +82,7 @@ def stream_response(message, history):
     Answer:
     """
 
-    for response in llm.stream(rag_prompt):
+    for response in groq.stream(rag_prompt):
       partial_message += response.content
       yield partial_message
 

@@ -13,9 +13,12 @@ def chunkTranscript(transcriptDocument):
         is_separator_regex=False,
     )
     chunks = text_splitter.split_documents(transcriptDocument)
+    # Add metadata to each chunk
+    for chunk in chunks:
+        chunk.metadata["source"] = "transcript"
     return chunks
 
-def chunkDocuments(Documents):
+def chunkDocuments(Documents, source=None):
     
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=300,
@@ -24,6 +27,9 @@ def chunkDocuments(Documents):
         is_separator_regex=False,
     )
     chunks = text_splitter.split_documents(Documents)
+    if source:
+        for chunk in chunks:
+            chunk.metadata["source"] = source
     return chunks
 
 def chunkResume(ResumeDocument):
@@ -40,4 +46,7 @@ def chunkResume(ResumeDocument):
         is_separator_regex=False,
     )
     chunks = text_splitter.split_documents(ResumeDocument)
+    # Add metadata to each chunk
+    for chunk in chunks:
+        chunk.metadata["source"] = "resume"
     return chunks
