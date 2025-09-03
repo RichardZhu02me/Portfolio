@@ -1,9 +1,7 @@
 langchain-community
 langchain_text_splitters
-langchain_openai
 langchain_chroma 
 langchain_huggingface
-gradio 
 python-dotenv 
 pypdf
 langchain-groq
