@@ -14,13 +14,14 @@ export const ChatbotWidget = () => {
         setMessages((prev) => [...prev, userMessage]);
         setInput("");
         try {
-            const response = await fetch(apiUrl+"/chatbot/api/chat/", {
+            const response = await fetch(apiUrl+"/chatbot", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ question: input }),
+                body: JSON.stringify({ message: input }),
             });
             const data = await response.json();
-            const botMessage = { role: "bot", content: data.answer };
+            console.log(data);
+            const botMessage = { role: "bot", content: data.response };
             setMessages((prev) => [...prev, botMessage]);
         } catch (error) {
             setMessages((prev) => [

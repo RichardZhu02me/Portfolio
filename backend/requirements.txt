@@ -1,6 +1,0 @@
-django
--r chatbot/requirements.txt
-django-cors-headers
-djangorestframework
-django-environ
-gunicorn
