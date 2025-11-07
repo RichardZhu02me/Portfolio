@@ -46,6 +46,24 @@
     }
   }
 
+  /* Simplified animation for reduced motion and low-end devices */
+  @keyframes bubble-float-simple {
+    0% {
+      transform: translate3d(0, 100vh, 0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.5;
+    }
+    80% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: translate3d(0, -10vh, 0);
+      opacity: 0;
+    }
+  }
+
   @keyframes bubble-fade {
     0%, 100% {
       opacity: 0;
@@ -98,9 +116,82 @@
   }
 }
 
+/* Responsive optimizations for mobile devices */
+@media (max-width: 768px) {
+  /* Reduce animation complexity on mobile */
+  @keyframes bubble-float {
+    0% {
+      transform: translate3d(0, 100vh, 0);
+      opacity: 0;
+    }
+    15% {
+      opacity: 0.6;
+    }
+    85% {
+      opacity: 0.6;
+    }
+    100% {
+      transform: translate3d(0, -10vh, 0);
+      opacity: 0;
+    }
+  }
+}
+
+/* Further optimizations for very small screens */
+@media (max-width: 480px) {
+  /* Even simpler animations for small mobile devices */
+  @keyframes bubble-float {
+    0% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.4;
+    }
+    80% {
+      opacity: 0.4;
+    }
+    100% {
+      transform: translateY(-10vh);
+      opacity: 0;
+    }
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes bubble-float {
+    0% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    100% {
+      transform: translateY(-10vh);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes bubble-float-simple {
+    0% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    100% {
+      transform: translateY(-10vh);
+      opacity: 0;
+    }
+  }
+}
+
 @layer base {
   :root {
-    --background: 210 40% 98%;
+    --background: 240 35% 94%;
     --foreground: 222 47% 11%;
 
     --card: 200 30% 96%;
@@ -132,8 +223,19 @@
 
   }
   body {
-      @apply bg-background text-foreground transition-colors duration-300;
+      @apply text-foreground transition-colors duration-300;
       font-feature-settings: "rlig" 1, "calt" 1;
+      background: linear-gradient(135deg, 
+        #f0f4ff 0%,
+        #f0fff4 25%,
+        #faf0ff 50%,
+        #f4f0ff 75%,
+        #f0f8ff 100%);
+      min-height: 100vh;
+    }
+    
+    .dark body {
+      @apply bg-background;
     }
 }
 
