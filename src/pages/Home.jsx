@@ -24,9 +24,19 @@ const HomeContent = () => {
 
 
 
-            {/* Background Effects - Theme-based backgrounds */}
-            {isDarkMode ? (
-                // Dark mode: Show GlitchcoreBackground
+            {/* Background Effects - Always render both, control visibility */}
+            
+            {/* BubbleBackground - always running, visible only in light mode */}
+            <BubbleBackground 
+                bubbleCount={23}
+                minSize={20}
+                maxSize={80}
+                animationDuration={{ min: 15, max: 25 }}
+                className={isDarkMode ? "opacity-0" : "opacity-90"}
+            />
+            
+            {/* GlitchcoreBackground - only render in dark mode */}
+            {isDarkMode && (
                 <GlitchcoreBackground 
                     intensity="normal"
                     colors={{
@@ -41,15 +51,6 @@ const HomeContent = () => {
                         }
                     }}
                     className="opacity-80"
-                />
-            ) : (
-                // Light mode: Show BubbleBackground
-                <BubbleBackground 
-                    bubbleCount={15}
-                    minSize={20}
-                    maxSize={80}
-                    animationDuration={{ min: 15, max: 25 }}
-                    className="opacity-90"
                 />
             )}
 

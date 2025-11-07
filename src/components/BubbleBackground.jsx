@@ -33,7 +33,7 @@ const BubbleBackground = ({
       x: randomBetween(0, 100), // Percentage for responsive positioning
       color: getRandomColor(),
       duration: randomBetween(animationDuration.min, animationDuration.max),
-      delay: randomBetween(0, 5), // Stagger animation starts
+      delay: randomBetween(0, 10), // Stagger animation starts - spread out more
       drift: randomBetween(-20, 20) // Horizontal drift amount
     });
 
