@@ -18,6 +18,42 @@
   --animate-fade-in-delay-3: fade-in 0.7s ease-out 0.6s forwards;
   --animate-fade-in-delay-4: fade-in 0.7s ease-out 0.8s forwards;
   --animate-meteor: meteor 5s linear infinite;
+  --animate-bubble-float: bubble-float var(--duration, 20s) ease-in-out infinite;
+  --animate-bubble-fade: bubble-fade var(--fade-duration, 2s) ease-in-out infinite;
+  
+  /* Bubble animation timing variables */
+  --bubble-float-duration: 20s;
+  --bubble-fade-duration: 2s;
+  --bubble-delay-min: 0s;
+  --bubble-delay-max: 5s;
+
+  @keyframes bubble-float {
+    0% {
+      transform: translate3d(0, 100vh, 0) scale(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.7;
+      transform: translate3d(0, 90vh, 0) scale(1);
+    }
+    90% {
+      opacity: 0.7;
+      transform: translate3d(var(--drift, 0px), 10vh, 0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(var(--drift, 0px), -10vh, 0) scale(0);
+    }
+  }
+
+  @keyframes bubble-fade {
+    0%, 100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: var(--bubble-opacity, 0.6);
+    }
+  }
 
   @keyframes float {
     0%,
@@ -67,10 +103,10 @@
     --background: 210 40% 98%;
     --foreground: 222 47% 11%;
 
-    --card: 0 0% 100%;
+    --card: 200 30% 96%;
 
-    --primary: 250 48% 60%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 200 60% 80%;
+    --primary-foreground: 210 40% 20%;
 
     --border: 214% 32% 91%;
 

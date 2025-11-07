@@ -7,11 +7,22 @@ export const ThemeProvider = ({ children }) => {
 
     useEffect(() => {
         const storedTheme = localStorage.getItem("theme");
-        if (storedTheme === "dark") {
-            setIsDarkMode(true);
+        
+        // Check stored theme first, then system preference
+        let shouldBeDark = false;
+        
+        if (storedTheme) {
+            shouldBeDark = storedTheme === "dark";
+        } else {
+            // Check system preference if no stored theme
+            shouldBeDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+        
+        setIsDarkMode(shouldBeDark);
+        
+        if (shouldBeDark) {
             document.documentElement.classList.add("dark");
         } else {
-            setIsDarkMode(false);
             document.documentElement.classList.remove("dark");
         }
     }, []);
