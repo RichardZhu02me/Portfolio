@@ -32,7 +32,7 @@ const HomeContent = () => {
                 minSize={20}
                 maxSize={80}
                 animationDuration={{ min: 15, max: 25 }}
-                className={isDarkMode ? "opacity-0" : "opacity-90"}
+                className={isDarkMode ? "opacity-0" : "opacity-75"}
             />
             
             {/* GlitchcoreBackground - only render in dark mode */}
