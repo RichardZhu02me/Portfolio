@@ -111,7 +111,7 @@ describe('BubbleBackground Performance Tests', () => {
     it('should properly cleanup timers and event listeners', () => {
       const removeEventListenerSpy = vi.spyOn(window, 'removeEventListener');
       const clearTimeoutSpy = vi.spyOn(global, 'clearTimeout');
-      const clearIntervalSpy = vi.spyOn(global, 'clearInterval');
+      vi.spyOn(global, 'clearInterval');
       
       const { unmount } = render(<BubbleBackground />);
       

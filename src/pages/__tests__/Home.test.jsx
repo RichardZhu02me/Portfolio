@@ -158,9 +158,6 @@ describe('Home', () => {
     it('should maintain BubbleBackground instance across theme switches for performance', () => {
       const { rerender } = render(<Home />);
       
-      // Get initial BubbleBackground element
-      const initialBubbleBackground = screen.getByTestId('bubble-background');
-      
       // Switch to dark mode
       mockTheme.isDarkMode = true;
       rerender(<Home />);

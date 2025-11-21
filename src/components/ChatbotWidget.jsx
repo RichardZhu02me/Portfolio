@@ -24,6 +24,7 @@ export const ChatbotWidget = () => {
             const botMessage = { role: "bot", content: data.response };
             setMessages((prev) => [...prev, botMessage]);
         } catch (error) {
+            console.log(error),
             setMessages((prev) => [
                 ...prev,
                 { role: "bot", content: "Sorry, something went wrong." },

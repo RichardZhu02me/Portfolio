@@ -17,7 +17,7 @@ const projects = [
         image: "/projects/project2.png",
         tags: ["OpenCV", "Yolov7"],
         demoURL: "#",
-        githubURl: "#"
+        githubURl: "https://github.com/RichardZhu02me/Live-Object-Detection"
     },
     {
         id: 3,
@@ -71,7 +71,7 @@ export const ProjectsSection = () => {
                             <p className="text-muted-foreground text-sm mb-4">
                                 {project.description}
                             </p>
-                            {/* <div className="flex justify-between items-center">
+                            <div className="flex justify-between items-center">
                                 <div className="flex space-x-3">
                                     <a href={project.demoURL}
                                         target="_blank"
@@ -86,7 +86,7 @@ export const ProjectsSection = () => {
                                         <Github size={20} />
                                     </a>
                                 </div>
-                            </div> */}
+                            </div>
                         </div>
                     </div>
                 ))}

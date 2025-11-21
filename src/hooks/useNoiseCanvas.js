@@ -56,7 +56,7 @@ export const useNoiseCanvas = (intensity = 'normal') => {
         // Pre-allocate ImageData for performance with error handling
         try {
           imageDataRef.current = ctx.createImageData(canvas.width, canvas.height);
-        } catch (imageDataError) {
+        } catch {
           console.warn('useNoiseCanvas: ImageData creation failed, falling back to simple drawing');
           imageDataRef.current = null;
         }

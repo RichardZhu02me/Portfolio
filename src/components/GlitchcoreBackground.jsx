@@ -92,7 +92,7 @@ const GlitchcoreBackground = ({
         // Test ImageData support
         try {
           testContext.createImageData(1, 1);
-        } catch (e) {
+        } catch {
           console.warn('GlitchcoreBackground: ImageData not supported, disabling noise effects');
           setHasCanvasSupport(false);
         }
@@ -199,6 +199,9 @@ const GlitchcoreBackground = ({
   useEffect(() => {
     if (prefersReducedMotion) return;
 
+    // Capture ref values for cleanup
+    const activeAnimations = activeAnimationsRef.current;
+
     const triggerJitter = () => {
       if (!isMountedRef.current) return;
       
@@ -257,20 +260,23 @@ const GlitchcoreBackground = ({
       }
       
       // Cancel any active animations
-      activeAnimationsRef.current.forEach(animation => {
+      activeAnimations.forEach(animation => {
         try {
           animation.cancel();
-        } catch (e) {
+        } catch {
           // Animation might already be finished/cancelled
         }
       });
-      activeAnimationsRef.current.clear();
+      activeAnimations.clear();
     };
   }, [isMobile, prefersReducedMotion]);
 
   // Glitch strip spawning mechanism with proper lifecycle management
   useEffect(() => {
     if (prefersReducedMotion) return;
+
+    // Capture ref values for cleanup
+    const stripTimeouts = stripTimeoutsRef.current;
 
     const createGlitchStrip = () => {
       if (!isMountedRef.current) return;
@@ -340,10 +346,10 @@ const GlitchcoreBackground = ({
       }
       
       // Clear all strip cleanup timeouts
-      stripTimeoutsRef.current.forEach(timeout => {
+      stripTimeouts.forEach(timeout => {
         clearTimeout(timeout);
       });
-      stripTimeoutsRef.current.clear();
+      stripTimeouts.clear();
     };
   }, [isMobile, prefersReducedMotion]);
 
@@ -412,6 +418,10 @@ const GlitchcoreBackground = ({
 
   // Component unmount cleanup effect
   useEffect(() => {
+    // Capture ref values for cleanup
+    const stripTimeouts = stripTimeoutsRef.current;
+    const activeAnimations = activeAnimationsRef.current;
+
     return () => {
       // Mark component as unmounted to prevent state updates
       isMountedRef.current = false;
@@ -426,26 +436,26 @@ const GlitchcoreBackground = ({
       }
       
       // Clear all strip cleanup timeouts
-      stripTimeoutsRef.current.forEach(timeout => {
+      stripTimeouts.forEach(timeout => {
         clearTimeout(timeout);
       });
-      stripTimeoutsRef.current.clear();
+      stripTimeouts.clear();
       
       // Cancel all active animations
-      activeAnimationsRef.current.forEach(animation => {
+      activeAnimations.forEach(animation => {
         try {
           animation.cancel();
-        } catch (e) {
+        } catch {
           // Animation might already be finished/cancelled
         }
       });
-      activeAnimationsRef.current.clear();
+      activeAnimations.clear();
       
       // Remove event listeners
       if (mobileQueryRef.current) {
         try {
           mobileQueryRef.current.removeEventListener('change', () => {});
-        } catch (e) {
+        } catch {
           // Listener might already be removed
         }
       }
@@ -453,7 +463,7 @@ const GlitchcoreBackground = ({
       if (motionQueryRef.current) {
         try {
           motionQueryRef.current.removeEventListener('change', () => {});
-        } catch (e) {
+        } catch {
           // Listener might already be removed
         }
       }
@@ -476,11 +486,6 @@ const GlitchcoreBackground = ({
       />
     );
   }
-
-  // Performance-based effect reduction
-  const effectiveIntensity = performanceMode === 'minimal' ? 'subtle' : 
-                           performanceMode === 'reduced' ? 'normal' : intensity;
-  
   const shouldShowParticles = performanceMode !== 'minimal' && !prefersReducedMotion;
   const shouldShowGlitchStrips = performanceMode !== 'minimal' && !prefersReducedMotion;
   const shouldShowNoise = hasCanvasSupport && performanceMode !== 'minimal';
@@ -821,7 +826,7 @@ const GlitchcoreBackground = ({
 
       {/* HUD-style text element for aesthetic completeness */}
       <div
-        className="absolute bottom-6 right-6 pointer-events-none select-none"
+        className="absolute bottom-6 left-6 pointer-events-none select-none"
         style={{
           fontFamily: 'monospace',
           fontSize: '0.75rem',

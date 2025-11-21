@@ -1,5 +1,4 @@
 import { Moon, Sun } from "lucide-react";
-import { createContext, useContext, useEffect, useState } from "react"
 import {cn} from "@/lib/utils"
 import { useTheme } from "./ThemeContext";
 

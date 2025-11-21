@@ -95,6 +95,7 @@ const BubbleBackground = ({
       animationDuration: adjustedDuration,
       reducedMotion: lowEnd
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bubbleCount, minSize, maxSize, animationDuration, windowSize]);
 
   // Handle window resize with throttling
@@ -184,7 +185,6 @@ const BubbleBackground = ({
 
   // Memoize bubble rendering for performance
   const bubbleElements = useMemo(() => {
-    console.log('BubbleBackground: Rendering bubbles', bubbles.length, 'className:', className);
     return bubbles.map((bubble) => {
       const animationName = config.reducedMotion ? 'bubble-float-simple' : 'bubble-float';
       
@@ -208,7 +208,7 @@ const BubbleBackground = ({
         />
       );
     });
-  }, [bubbles, config.reducedMotion, className]);
+  }, [bubbles, config.reducedMotion]);
 
   return (
     <div 

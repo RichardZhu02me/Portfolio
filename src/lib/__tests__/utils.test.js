@@ -9,7 +9,9 @@ describe('utils', () => {
     });
 
     it('should handle conditional classes', () => {
-      const result = cn('base', true && 'conditional', false && 'hidden');
+      const isTrue = true;
+      const isFalse = false;
+      const result = cn('base', isTrue && 'conditional', isFalse && 'hidden');
       expect(result).toBe('base conditional');
     });
 
@@ -44,9 +46,10 @@ describe('utils', () => {
     });
 
     it('should handle complex combinations', () => {
+      const isTrue = true;
       const result = cn(
         'base-class',
-        true && 'conditional-class',
+        isTrue && 'conditional-class',
         { 'object-class': true, 'hidden-class': false },
         ['array-class1', 'array-class2']
       );
