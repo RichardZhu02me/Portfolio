@@ -133,15 +133,18 @@ const BubbleBackground = ({
     };
   }, [config, randomBetween, getRandomColor]);
 
-  // Generate initial bubbles only once - persist across theme changes
+  // Generate initial bubbles and update when bubble count changes
   useEffect(() => {
-    if (!isInitialized) {
-      const initialBubbles = Array.from({ length: config.bubbleCount }, (_, i) => 
+    // Initialize or update bubbles when count changes
+    if (!isInitialized || bubbles.length !== config.bubbleCount) {
+      const newBubbles = Array.from({ length: config.bubbleCount }, (_, i) => 
         generateBubble(`bubble-${Date.now()}-${i}`)
       );
-      console.log('BubbleBackground: Initializing bubbles', initialBubbles.length);
-      setBubbles(initialBubbles);
-      setIsInitialized(true);
+      console.log('BubbleBackground: Initializing bubbles', newBubbles.length);
+      setBubbles(newBubbles);
+      if (!isInitialized) {
+        setIsInitialized(true);
+      }
     }
 
     // Only cleanup on component unmount, not on config changes
@@ -149,7 +152,7 @@ const BubbleBackground = ({
       // Only clear bubbles if component is actually unmounting
       // This prevents clearing bubbles on theme changes
     };
-  }, [config.bubbleCount, generateBubble, isInitialized]);
+  }, [config.bubbleCount, generateBubble, isInitialized, bubbles.length]);
 
   // Performance monitoring and cleanup - but don't kill bubbles during theme changes
   useEffect(() => {
@@ -170,7 +173,7 @@ const BubbleBackground = ({
             return prev; // Don't reduce further
           });
         }
-      }, 10000); // Check less frequently to avoid killing bubbles during theme changes
+      }, 5000); // Performance monitoring interval
     }
 
     return () => {
@@ -212,6 +215,7 @@ const BubbleBackground = ({
 
   return (
     <div 
+      role="presentation"
       className={`fixed inset-0 pointer-events-none overflow-hidden ${className}`} 
       style={{ 
         zIndex: 5,

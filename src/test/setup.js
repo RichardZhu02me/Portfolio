@@ -66,3 +66,10 @@ Object.defineProperty(window, 'innerHeight', {
   writable: true,
   value: 768,
 });
+
+// Mock navigator.deviceMemory for performance tests
+Object.defineProperty(global.navigator, 'deviceMemory', {
+  writable: true,
+  configurable: true,
+  value: 8, // Default to high-end device
+});
