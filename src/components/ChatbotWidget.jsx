@@ -1,6 +1,5 @@
 import { useState } from 'react';
 const apiUrl = import.meta.env.VITE_GCLOUD_RUN_URL;
-const idToken = import.meta.env.VITE_GLCOUD_ID_TOKEN;
 
 export const ChatbotWidget = () => {
     const [isOpen, setIsOpen] = useState(false);
