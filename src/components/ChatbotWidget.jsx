@@ -1,5 +1,6 @@
 import { useState } from 'react';
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_GCLOUD_RUN_URL;
+const idToken = import.meta.env.VITE_GLCOUD_ID_TOKEN;
 
 export const ChatbotWidget = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -14,10 +15,10 @@ export const ChatbotWidget = () => {
         setMessages((prev) => [...prev, userMessage]);
         setInput("");
         try {
-            const response = await fetch(apiUrl+"/chatbot", {
+            const response = await fetch(apiUrl, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: input }),
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ name: input }),
             });
             const data = await response.json();
             console.log(data);
