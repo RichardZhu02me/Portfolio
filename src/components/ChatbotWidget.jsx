@@ -1,9 +1,13 @@
 import { useState } from 'react';
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_GCLOUD_RUN_URL;
 
 export const ChatbotWidget = () => {
+
+    const opening_message = {"role": "bot", "content": "Hello! How can I assist you today?"};
+
+
     const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState([opening_message]);
     const [input, setInput] = useState("");
 
     const toggleChat = () => setIsOpen(!isOpen);
@@ -14,10 +18,10 @@ export const ChatbotWidget = () => {
         setMessages((prev) => [...prev, userMessage]);
         setInput("");
         try {
-            const response = await fetch(apiUrl+"/chatbot", {
+            const response = await fetch(apiUrl, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: input }),
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ message : input }),
             });
             const data = await response.json();
             console.log(data);
