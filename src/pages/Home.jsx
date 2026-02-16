@@ -19,30 +19,30 @@ const HomeContent = () => {
         <>
             {/* Theme Toggle */}
             <ThemeToggle />
-            
+
 
 
 
 
             {/* Background Effects - Always render both, control visibility */}
-            
+
             {/* BubbleBackground - always running, visible only in light mode */}
-            <BubbleBackground 
+            <BubbleBackground
                 bubbleCount={23}
                 minSize={20}
                 maxSize={80}
                 animationDuration={{ min: 15, max: 25 }}
                 className={isDarkMode ? "opacity-0" : "opacity-75"}
             />
-            
+
             {/* GlitchcoreBackground - only render in dark mode */}
             {isDarkMode && (
-                <GlitchcoreBackground 
+                <GlitchcoreBackground
                     intensity="normal"
                     colors={{
                         bgDark: '#0a0210',
                         neon1: '#ff2d95',
-                        neon2: '#6efff6', 
+                        neon2: '#6efff6',
                         neon3: '#8b5cff',
                         opacities: {
                             noise: 0.06,
@@ -56,25 +56,25 @@ const HomeContent = () => {
 
             {/* Navbar */}
             <Navbar />
-            
+
             {/* Main Content */}
             <main>
                 <HeroSection />
                 <AboutSection />
-                <SkillsSection/>
-                <ProjectsSection/>
-                <ContactSection/>
+                <ProjectsSection />
+                {/* <SkillsSection/> */}
+                <ContactSection />
             </main>
-            
+
             {/* Footer */}
-            <Footer/>
+            <Footer />
         </>
     );
 };
 
 export const Home = () => {
     return (
-        <div className="min-h-screen bg-background text-foreground overflow-x-hidden"> 
+        <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
             <ThemeProvider>
                 <HomeContent />
             </ThemeProvider>
