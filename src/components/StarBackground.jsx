@@ -1,73 +1,66 @@
 import { useEffect, useState } from "react";
-import { useTheme } from "./ThemeContext";
 
 // id, size, x, y, opacity, animationDuration
 // id, size, x, y, delay, animationDuration
 
 
 export const StarBackground = () => {
-        const [stars, setStars] = useState([]);
-        const [meteors, setMeteors] = useState([]);
+    const [stars, setStars] = useState([]);
+    const [meteors, setMeteors] = useState([]);
 
-        const { isDarkMode } = useTheme();
-        
-        useEffect(() => {
-            if (isDarkMode) {
-                generateStars();
-                generateMeteors();
-            } else {
-                // Optional: clear stars and meteors on light mode
-                setStars([]);
-                setMeteors([]);
-            }
-        }, [isDarkMode]);
-        
 
-        const generateStars = () => {
-            const numberOfStars = Math.floor(
-                (window.innerWidth * window.innerHeight) / 10000
-            );
+    useEffect(() => {
+        // Generate stars and meteors unconditionally
+        generateStars();
+        generateMeteors();
+    }, []); // Empty dependency array means it runs once on mount
 
-            const newStars = [];
 
-            for (let i = 0; i < numberOfStars; i++) {
-                newStars.push({
-                    id:i,
-                    size: Math.random() * 3 + 1,
-                    x: Math.random() * 100,
-                    y: Math.random() * 100,
-                    opacity: Math.random() * 0.5 + 0.5,
-                    animationDuration: Math.random() * 4 + 2,
-                })
-            }
+    const generateStars = () => {
+        const numberOfStars = Math.floor(
+            (window.innerWidth * window.innerHeight) / 10000
+        );
 
-            setStars(newStars)
-        };
+        const newStars = [];
 
-        const generateMeteors = () => {
-            const numberOfMeteors = 5;
+        for (let i = 0; i < numberOfStars; i++) {
+            newStars.push({
+                id: i,
+                size: Math.random() * 3 + 1,
+                x: Math.random() * 100,
+                y: Math.random() * 100,
+                opacity: Math.random() * 0.5 + 0.5,
+                animationDuration: Math.random() * 4 + 2,
+            })
+        }
 
-            const newMeteors = [];
+        setStars(newStars)
+    };
 
-            for (let i = 0; i < numberOfMeteors; i++) {
-                newMeteors.push({
-                    id:i,
-                    size: Math.random() * 2 + 1,
-                    x: Math.random() * 100,
-                    y: Math.random() * 20,
-                    delay: Math.random() * 15,
-                    animationDuration: Math.random() * 3 + 3,
-                })
-            }
+    const generateMeteors = () => {
+        const numberOfMeteors = 5;
 
-            setMeteors(newMeteors);
-        };
+        const newMeteors = [];
 
-        return (
-            <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                {stars.map((star) => (
-                    <div key={star.id} 
-                    className="star animate-pulse-subtle" 
+        for (let i = 0; i < numberOfMeteors; i++) {
+            newMeteors.push({
+                id: i,
+                size: Math.random() * 2 + 1,
+                x: Math.random() * 100,
+                y: Math.random() * 20,
+                delay: Math.random() * 15,
+                animationDuration: Math.random() * 3 + 3,
+            })
+        }
+
+        setMeteors(newMeteors);
+    };
+
+    return (
+        <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+            {stars.map((star) => (
+                <div key={star.id}
+                    className="star animate-pulse-subtle"
                     style={{
                         width: star.size + "px",
                         height: star.size + "px",
@@ -75,12 +68,12 @@ export const StarBackground = () => {
                         top: star.y + "%",
                         opacity: star.opacity,
                         animationDuration: star.animationDuration + "s",
-                    }}/>
-                ))}
+                    }} />
+            ))}
 
-                {meteors.map((meteor) => (
-                    <div key={meteor.id} 
-                    className="meteor animate-meteor" 
+            {meteors.map((meteor) => (
+                <div key={meteor.id}
+                    className="meteor animate-meteor"
                     style={{
                         width: meteor.size * 50 + "px",
                         height: meteor.size * 2 + "px",
@@ -88,8 +81,8 @@ export const StarBackground = () => {
                         top: meteor.y + "%",
                         // animationDelay: meteor.delay + "s",
                         animationDuration: meteor.animationDuration + "s",
-                    }}/>
-                ))}
-            </div>
-        );
+                    }} />
+            ))}
+        </div>
+    );
 };

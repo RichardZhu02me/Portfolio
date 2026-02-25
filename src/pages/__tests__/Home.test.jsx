@@ -31,16 +31,6 @@ vi.mock('../../components/Footer', () => ({
   Footer: () => <div data-testid="footer">Footer</div>
 }));
 
-// Mock the ThemeContext - we'll control this in individual tests
-const mockTheme = {
-  isDarkMode: false,
-  toggleTheme: vi.fn()
-};
-
-vi.mock('../../components/ThemeContext', () => ({
-  ThemeProvider: ({ children }) => children,
-  useTheme: () => mockTheme
-}));
 
 describe('Home', () => {
   beforeEach(() => {

@@ -1,30 +1,29 @@
 import { Instagram, Linkedin, Mail, Map, Phone, Send, Youtube } from "lucide-react";
-import {cn} from "@/lib/utils"
+import { cn } from "@/lib/utils"
 import { toast, Zoom } from 'react-toastify';
 import { useState } from "react";
-import { useTheme } from "./ThemeContext";
 
 export const ContactSection = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
-    
-    const { isDarkMode } = useTheme();
+
+
 
     const handleSubmit = (e) => {
         setIsSubmitting(true);
         e.preventDefault();
-        setTimeout(() =>{
-        toast.error('Sorry, this feature is currently unavailable. Send me an email instead!', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: isDarkMode ? "dark": "light",
-        transition: Zoom,
-        });
-        setIsSubmitting(false);
+        setTimeout(() => {
+            toast.error('Sorry, this feature is currently unavailable. Send me an email instead!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: isDarkMode ? "dark" : "light",
+                transition: Zoom,
+            });
+            setIsSubmitting(false);
         }, 1500);
     };
 
@@ -39,7 +38,7 @@ export const ContactSection = () => {
                     Have a project in mind or want to collaborate? Feel free to reach out.
                     I'm always open to discussing new opportunities.
                 </p>
-        
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                     <div className="space-y-8">
                         <h3 className="text-2xl font-semibold mb-6">
@@ -53,9 +52,9 @@ export const ContactSection = () => {
                                 </div>
                                 <div>
                                     <h4 className="font-medium"> Phone</h4>
-                                    <a 
-                                    href="tel:+14375224079" target="_blank"
-                                    className="text-muted-foregound hover:text-primary transition-colors"
+                                    <a
+                                        href="tel:+14375224079" target="_blank"
+                                        className="text-muted-foregound hover:text-primary transition-colors"
                                     >
                                         +1 (437) 522-4079
                                     </a>
@@ -68,9 +67,9 @@ export const ContactSection = () => {
                                 </div>
                                 <div>
                                     <h4 className="font-medium"> Email</h4>
-                                    <a 
-                                    href="mailto:richardzhu09@gmail.com" target="_blank"
-                                    className="text-muted-foregound hover:text-primary transition-colors"
+                                    <a
+                                        href="mailto:richardzhu09@gmail.com" target="_blank"
+                                        className="text-muted-foregound hover:text-primary transition-colors"
                                     >
                                         RichardZhu09@gmail.com
                                     </a>
@@ -83,9 +82,9 @@ export const ContactSection = () => {
                                 </div>
                                 <div>
                                     <h4 className="font-medium"> Location</h4>
-                                    <a 
-                                    href="https://www.google.com/maps/place/Markham,+ON" target="_blank"
-                                    className="text-muted-foregound hover:text-primary transition-colors"
+                                    <a
+                                        href="https://www.google.com/maps/place/Markham,+ON" target="_blank"
+                                        className="text-muted-foregound hover:text-primary transition-colors"
                                     >
                                         Markham, ON, Canada
                                     </a>
@@ -98,61 +97,61 @@ export const ContactSection = () => {
                             </h4>
                             <div className="flex space-x-4 justify-center">
                                 <a href="https://www.linkedin.com/in/richard-zhu-472853263/" target="_blank">
-                                    <Linkedin/>
+                                    <Linkedin />
                                 </a>
                                 <a href="https://www.instagram.com/zertume/" target="_blank">
-                                    <Instagram/>
+                                    <Instagram />
                                 </a>
                                 <a href="https://www.youtube.com/@Zertume" target="_blank">
-                                    <Youtube/>
+                                    <Youtube />
                                 </a>
                             </div>
 
-                            
+
 
                         </div>
-                        
+
                     </div>
                     <div className="bg-card p-8 rounded-lg shadow-xs" onSubmit={handleSubmit}>
-                            <h3 className="text-2l font-semibold mb-6"> Send a Message</h3>
+                        <h3 className="text-2l font-semibold mb-6"> Send a Message</h3>
 
-                            <form className="space-y-6">
-                                <div> 
-                                    <label htmlFor="name" className="block text-sm font-medium mb-2"> {" "}Your Name</label>
-                                    <input type="text" id="name" name="name" required 
+                        <form className="space-y-6">
+                            <div>
+                                <label htmlFor="name" className="block text-sm font-medium mb-2"> {" "}Your Name</label>
+                                <input type="text" id="name" name="name" required
                                     className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outlined-hidden focus:ring-2 focus:ring-primary"
                                     placeholder="Richard Zhu..."
-                                    />
+                                />
 
-                                    <label htmlFor="email" className="block text-sm font-medium mb-2"> {" "}Email</label>
-                                    <input type="text" id="email" email="email" required 
+                                <label htmlFor="email" className="block text-sm font-medium mb-2"> {" "}Email</label>
+                                <input type="text" id="email" email="email" required
                                     className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outlined-hidden focus:ring-2 focus:ring-primary"
                                     placeholder="RichardZhu09@gmail.com"
-                                    />
-                                    
-                                    <label htmlFor="message" className="block text-sm font-medium mb-2"> {" "}Your Message</label>
-                                    <textarea id="message" name="message" required 
+                                />
+
+                                <label htmlFor="message" className="block text-sm font-medium mb-2"> {" "}Your Message</label>
+                                <textarea id="message" name="message" required
                                     className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outlined-hidden focus:ring-2 focus:ring-primary resize-none"
                                     placeholder="Hello, I'd like to talk about..."
-                                    />
-                                </div>
+                                />
+                            </div>
 
-                                <button type="submit" 
-                                    disabled={isSubmitting}
-                                    className={cn(
-                                        "cosmic-button w-full flex items-center justify-center gap-2",
+                            <button type="submit"
+                                disabled={isSubmitting}
+                                className={cn(
+                                    "cosmic-button w-full flex items-center justify-center gap-2",
 
-                                    )}>
-                                        {isSubmitting ? "Sending..." : "Send Message"}
-                                        <Send size={16}/>
-                                </button>
+                                )}>
+                                {isSubmitting ? "Sending..." : "Send Message"}
+                                <Send size={16} />
+                            </button>
 
-                            </form>
-                        </div>
+                        </form>
+                    </div>
                 </div>
-                
+
             </div>
-        
+
         </section>
     );
 };
