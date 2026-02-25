@@ -1,13 +1,9 @@
 import { ArrowLeft, Github } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ThemeProvider, useTheme } from "../components/ThemeContext";
-import GlitchcoreBackground from "../components/GlitchcoreBackground";
 import BubbleBackground from "../components/BubbleBackground";
 import { Footer } from "../components/Footer";
-import { ThemeToggle } from "../components/ThemeToggle";
 
 const CaseStudyContent = () => {
-    const { isDarkMode } = useTheme();
 
     return (
         <>
@@ -18,22 +14,8 @@ const CaseStudyContent = () => {
                 minSize={20}
                 maxSize={80}
                 animationDuration={{ min: 15, max: 25 }}
-                className={isDarkMode ? "opacity-0" : "opacity-75"}
+                className="opacity-75"
             />
-
-            {isDarkMode && (
-                <GlitchcoreBackground
-                    intensity="normal"
-                    colors={{
-                        bgDark: '#0a0210',
-                        neon1: '#ff2d95',
-                        neon2: '#6efff6',
-                        neon3: '#8b5cff',
-                        opacities: { noise: 0.06, scanline: 0.06, silhouette: 0.12 }
-                    }}
-                    className="opacity-80"
-                />
-            )}
 
             <main className="container mx-auto max-w-4xl px-4 py-24 relative z-10">
                 <Link to="/" className="inline-flex items-center text-primary hover:underline mb-8">

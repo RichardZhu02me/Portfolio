@@ -1,11 +1,11 @@
 import { Briefcase, Code, User } from "lucide-react";
 
-const pdfURL = "/Richard_Zhu_Resume.pdf";
+const pdfURL = "/Richard_Zhu_Software_Engineer.pdf";
 
 function handleClick() {
     const link = document.createElement("a");
     link.href = pdfURL;
-    link.download = "Richard_Zhu_Resume.pdf";
+    link.download = "Richard_Zhu_Software_Engineer.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
