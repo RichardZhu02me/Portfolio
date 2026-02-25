@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
   --color-border: hsl(var(--border));
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -191,28 +194,28 @@
 
 @layer base {
   :root {
-    --background: 240 35% 94%;
-    --foreground: 222 47% 11%;
+    /* Neural Terminal Dark Mode Colors */
+    --background: 222 47% 5%; /* Slate-950 #020617 */
+    --foreground: 210 40% 98%; /* Slate-50 */
 
-    --card: 200 30% 96%;
+    --card: 222 47% 7%; /* Slate-900 */
 
-    --primary: 200 60% 80%;
-    --primary-foreground: 210 40% 20%;
+    --primary: 160 84% 39%; /* Emerald-500 #10b981 */
+    --primary-foreground: 0 0% 100%;
 
-    --border: 214% 32% 91%;
-
+    --border: 215 28% 17%; /* Slate-800 #1e293b */
   }
 
   .dark {
-    --background: 222 47% 4%;
-    --foreground: 213 31% 91%; 
+    --background: 222 47% 5%;
+    --foreground: 210 40% 98%; 
 
-    --card: 222 47% 8%;
+    --card: 222 47% 7%;
 
-    --primary: 250 65% 65%;
-    --primary-foreground: 213 31% 91%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 0 0% 100%;
 
-    --border: 217% 33% 20%;
+    --border: 215 28% 17%;
   }
 
   * {
@@ -220,23 +223,19 @@
   }
   html {
     @apply scroll-smooth;
-
   }
   body {
-      @apply text-foreground transition-colors duration-300;
-      font-feature-settings: "rlig" 1, "calt" 1;
-      background: linear-gradient(135deg, 
-        #f0f4ff 0%,
-        #f0fff4 25%,
-        #faf0ff 50%,
-        #f4f0ff 75%,
-        #f0f8ff 100%);
-      min-height: 100vh;
-    }
-    
-    .dark body {
-      @apply bg-background;
-    }
+    @apply text-foreground transition-colors duration-300;
+    font-family: var(--font-sans);
+    font-feature-settings: "rlig" 1, "calt" 1;
+    min-height: 100vh;
+    /* Subtle grid-line overlay */
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-color: hsl(var(--background));
+  }
 }
 
 @utility container {

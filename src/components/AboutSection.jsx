@@ -63,9 +63,9 @@ export const AboutSection = () => {
                                     <User className="h-6 w-6 text-primary" />
                                 </div>
                                 <div className="text-left">
-                                    <h4 className="font-semibold text-lg"> Fullstack Development </h4>
+                                    <h4 className="font-semibold text-lg"> AI Infrastructure </h4>
                                     <p className="text-muted-foreground">
-                                        I build scalable and reliable backend systems using modern frameworks, ensuring clean architecture, secure APIs, and smooth frontend integration..
+                                        I build the scalable "plumbing" that makes AI work in production, including custom vector similarity pipelines, RAG data ingestion engines, and high-throughput Model APIs.
                                     </p>
                                 </div>
                             </div>
