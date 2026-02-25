@@ -2,32 +2,24 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 const skills = [
-    // FullStack
+    // Inference & Logic
+    { name: "Python", level: 85, category: "inference & logic" },
+    { name: "LangChain", level: 80, category: "inference & logic" },
+    { name: "Transformers (HF)", level: 75, category: "inference & logic" },
+    { name: "LangGraph", level: 80, category: "inference & logic" },
+    { name: "ChromaDB", level: 70, category: "inference & logic" },
+    { name: "RAG & Reciprocal Rank Fusion", level: 85, category: "inference & logic" },
 
-    // Frontend
-    { name: "HTML/CSS", level: 40, category: "frontend" },
-    { name: "Javascript", level: 60, category: "frontend" },
-    { name: "React", level: 55, category: "frontend" },
-    { name: "Tailwind CSS", level: 45, category: "frontend" },
+    // Interface & Scale
+    { name: "FastAPI", level: 80, category: "interface & scale" },
+    { name: "React", level: 75, category: "interface & scale" },
+    { name: "TypeScript", level: 70, category: "interface & scale" },
+    { name: "Docker", level: 65, category: "interface & scale" },
+    { name: "AWS / GCP", level: 65, category: "interface & scale" },
+    { name: "Tailwind CSS", level: 80, category: "interface & scale" },
+];
 
-    // Backend
-    { name: "Python", level: 75, category: "backend" },
-    { name: "Django", level: 65, category: "backend" },
-    { name: "C++", level: 60, category: "backend" },
-    { name: "Java", level: 45, category: "backend" },
-    { name: "PostgreSQL", level: 35, category: "backend" },
-
-
-    // Tools
-    { name: "Git/GitHub", level: 70, category: "tools" },
-    { name: "Docker", level: 65, category: "tools" },
-    { name: "VS Code", level: 55, category: "tools" },
-    { name: "EC2", level: 40, category: "tools" },
-
-
-]
-
-const categories = ["all", "frontend", "backend", "tools"]
+const categories = ["all", "inference & logic", "interface & scale"];
 
 export const SkillsSection = () => {
     const [activeCategory, setActiveCategory] = useState("all");

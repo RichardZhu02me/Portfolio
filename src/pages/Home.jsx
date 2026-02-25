@@ -1,5 +1,5 @@
-import { ThemeToggle } from "../components/ThemeToggle";
-import GlitchcoreBackground from "../components/GlitchcoreBackground";
+// import { ThemeToggle } from "../components/ThemeToggle";
+// import GlitchcoreBackground from "../components/GlitchcoreBackground";
 import BubbleBackground from "../components/BubbleBackground";
 import { Navbar } from "../components/Navbar";
 import { HeroSection } from "../components/HeroSection"
@@ -18,7 +18,7 @@ const HomeContent = () => {
     return (
         <>
             {/* Theme Toggle */}
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
 
 
 
