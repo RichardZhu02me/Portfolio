@@ -9,10 +9,11 @@ The React site and the Cloud Run chatbot have separate source roots.
 
 ## Run the frontend locally
 
+From the repository root, run:
+
 ```sh
-cd frontend
-npm ci
-npm run dev
+bun install --cwd frontend
+bun frontend
 ```
 
 Set `VITE_GCLOUD_RUN_URL` in `frontend/.env.local` to connect the local chatbot to your deployed function. Set the same variable in Vercel for deployed builds.
