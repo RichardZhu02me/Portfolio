@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/exam-generator", "destination": "/index.html" },
+    { "source": "/lumen-parser", "destination": "/index.html" }
+  ]
+}

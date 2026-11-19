@@ -1,12 +1,18 @@
-# React + Vite
+# Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The React site and the Cloud Run chatbot have separate source roots.
 
-Currently, two official plugins are available:
+| Folder | Deployment |
+| --- | --- |
+| `frontend/` | Vercel. Set the project Root Directory to `frontend`. |
+| `backend/` | Cloud Run function. Use `backend` as the source directory and `chatbot` as the entry point. |
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Run the frontend locally
 
-## Expanding the ESLint configuration
+```sh
+cd frontend
+npm ci
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Set `VITE_GCLOUD_RUN_URL` in `frontend/.env.local` to connect the local chatbot to your deployed function. Set the same variable in Vercel for deployed builds.

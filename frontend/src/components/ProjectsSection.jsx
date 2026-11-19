@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import { ArrowRight, ExternalLink, Github, Network, Layers, ChevronUp, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { StatusPing } from "./StatusPing";
-import { cn } from "../lib/utils";
 
 const projects = [
     {

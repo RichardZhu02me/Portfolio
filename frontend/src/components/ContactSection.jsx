@@ -1,30 +1,14 @@
 import { Instagram, Linkedin, Mail, Map, Phone, Send, Youtube } from "lucide-react";
-import { cn } from "@/lib/utils"
-import { toast, Zoom } from 'react-toastify';
-import { useState } from "react";
+
+const contactEmail = "richardzhu09@gmail.com";
 
 export const ContactSection = () => {
-    const [isSubmitting, setIsSubmitting] = useState(false);
-
-
-
-    const handleSubmit = (e) => {
-        setIsSubmitting(true);
-        e.preventDefault();
-        setTimeout(() => {
-            toast.error('Sorry, this feature is currently unavailable. Send me an email instead!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                theme: isDarkMode ? "dark" : "light",
-                transition: Zoom,
-            });
-            setIsSubmitting(false);
-        }, 1500);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const fields = new FormData(event.currentTarget);
+        const subject = encodeURIComponent(`Portfolio message from ${fields.get("name")}`);
+        const body = encodeURIComponent(`${fields.get("message")}\n\nReply to: ${fields.get("email")}`);
+        window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
     };
 
     return (
@@ -68,7 +52,7 @@ export const ContactSection = () => {
                                 <div>
                                     <h4 className="font-medium"> Email</h4>
                                     <a
-                                        href="mailto:richardzhu09@gmail.com" target="_blank"
+                                        href={`mailto:${contactEmail}`}
                                         className="text-muted-foregound hover:text-primary transition-colors"
                                     >
                                         RichardZhu09@gmail.com
@@ -112,10 +96,10 @@ export const ContactSection = () => {
                         </div>
 
                     </div>
-                    <div className="bg-card p-8 rounded-lg shadow-xs" onSubmit={handleSubmit}>
+                    <div className="bg-card p-8 rounded-lg shadow-xs">
                         <h3 className="text-2l font-semibold mb-6"> Send a Message</h3>
 
-                        <form className="space-y-6">
+                        <form className="space-y-6" onSubmit={handleSubmit}>
                             <div>
                                 <label htmlFor="name" className="block text-sm font-medium mb-2"> {" "}Your Name</label>
                                 <input type="text" id="name" name="name" required
@@ -124,7 +108,7 @@ export const ContactSection = () => {
                                 />
 
                                 <label htmlFor="email" className="block text-sm font-medium mb-2"> {" "}Email</label>
-                                <input type="text" id="email" email="email" required
+                                <input type="email" id="email" name="email" required
                                     className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outlined-hidden focus:ring-2 focus:ring-primary"
                                     placeholder="RichardZhu09@gmail.com"
                                 />
@@ -136,13 +120,8 @@ export const ContactSection = () => {
                                 />
                             </div>
 
-                            <button type="submit"
-                                disabled={isSubmitting}
-                                className={cn(
-                                    "cosmic-button w-full flex items-center justify-center gap-2",
-
-                                )}>
-                                {isSubmitting ? "Sending..." : "Send Message"}
+                            <button type="submit" className="cosmic-button w-full flex items-center justify-center gap-2">
+                                Open email draft
                                 <Send size={16} />
                             </button>
 
