@@ -48,12 +48,18 @@ class PortfolioRAGTests(unittest.TestCase):
     def setUp(self):
         stack = patch.dict(os.environ, {
             "PINECONE_API_KEY": "test",
-            "PINECONE_INDEX_HOST": "portfolio.example",
-            "PINECONE_NAMESPACE": "",
+            "PINECONE_INDEX_HOST": "stale.example",
+            "PINECONE_NAMESPACE": "stale",
             "PINECONE_TEXT_FIELD": "",
         })
         self.addCleanup(stack.stop)
         stack.start()
+        retrieval._index_host.cache_clear()
+        self.addCleanup(retrieval._index_host.cache_clear)
+        self.describe_index = self.enterContext(patch(
+            "chatbot.retrieval.httpx.get",
+            return_value=Mock(**{"json.return_value": {"host": "portfolio.example"}}),
+        ))
         self.client = Mock()
         self.route = {
             "source": "resume",
@@ -83,7 +89,13 @@ class PortfolioRAGTests(unittest.TestCase):
         }}]}}
         answer, calls, groq = self.complete("What did Richard build?", result)
         self.assertEqual(answer, "Grounded answer.")
-        self.assertTrue(calls[0].args[0].endswith("/records/namespaces/documents/search"))
+        self.assertEqual(
+            self.describe_index.call_args.args[0],
+            "https://api.pinecone.io/indexes/advanced-rag-index",
+        )
+        self.assertEqual(
+            calls[0].args[0], "https://portfolio.example/records/namespaces/documents/search",
+        )
         request = calls[0].kwargs["json"]
         self.assertEqual(request["query"]["filter"], {"source": {"$eq": "resume"}})
         self.assertEqual(request["rerank"]["model"], "bge-reranker-v2-m3")

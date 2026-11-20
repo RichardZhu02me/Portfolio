@@ -4,6 +4,7 @@ import functions_framework
 from flask import jsonify
 
 from chatbot.completions import CHAT_ERRORS, get_answer
+from chatbot.retrieval import RetrievalUnavailable
 
 logger = logging.getLogger(__name__)
 CORS_HEADERS = {"Access-Control-Allow-Origin": "*"}
@@ -33,7 +34,10 @@ def chatbot(request):
     try:
         answer = get_answer(question.strip())
     except CHAT_ERRORS as error:
-        logger.warning("Portfolio chat failed (%s)", type(error).__name__)
+        if isinstance(error, RetrievalUnavailable):
+            logger.warning("Portfolio chat failed (RetrievalUnavailable): %s", error.diagnostic)
+        else:
+            logger.warning("Portfolio chat failed (%s)", type(error).__name__)
         return jsonify(error="Chat is temporarily unavailable."), 503, CORS_HEADERS
 
     return jsonify(response=answer), 200, CORS_HEADERS
