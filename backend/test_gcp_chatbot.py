@@ -57,10 +57,10 @@ class PortfolioRAGTests(unittest.TestCase):
         self.client = Mock()
         self.route = {
             "source": "resume",
-            "season": None,
+            "season": "any",
             "calendar_years": [],
             "academic_years": [],
-            "term": None,
+            "term": "any",
             "latest": False,
         }
 
@@ -93,6 +93,20 @@ class PortfolioRAGTests(unittest.TestCase):
         prompt = groq[1].kwargs["messages"][1]["content"]
         self.assertIn("Built an object detector.", prompt)
         self.assertNotIn("12345678", prompt)
+
+    def test_broad_question_omits_metadata_filters(self):
+        self.route.update(source="any")
+        result = {"result": {"hits": [{"fields": {"text": "Portfolio context."}}]}}
+
+        answer, calls, groq = self.complete("Tell me about Richard.", result)
+
+        self.assertEqual(answer, "Grounded answer.")
+        self.assertNotIn("filter", calls[0].kwargs["json"]["query"])
+        fields = groq[0].kwargs["response_format"]["json_schema"]["schema"]["properties"]
+        for field in ("source", "season", "term"):
+            self.assertEqual(fields[field]["type"], "string")
+            self.assertIn("any", fields[field]["enum"])
+            self.assertNotIn(None, fields[field]["enum"])
 
     def test_transcript_filters_and_empty_result(self):
         self.route.update(
